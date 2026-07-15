@@ -95,9 +95,9 @@ bash test_results/run_all_tasks.sh
 GPU=1 bash test_results/run_all_tasks.sh
 ```
 
-Each task takes ~2 minutes on a single GPU (~20 minutes total; phase retrieval runs 5× and keeps the best). Figures are written to `test_results/<task>_comparison.png`, with raw outputs and a metrics CSV under `test_results/<task>/`. Pre-generated figures are included in the repo so you can preview the expected results before running anything — for example, Gaussian deblurring:
+Figures are written to `test_results/<task>_comparison.png`, with raw outputs and a metrics CSV under `test_results/<task>/`. Pre-generated figures are included in the repo so you can preview the expected results before running anything — for example, Motion deblurring:
 
-![Gaussian deblurring comparison](test_results/deconv_comparison.png)
+![Motion deblurring comparison](test_results/motion_deblur_comparison.png)
 
 Note: the `nonlinear_blur` task requires the optional [bkse](#2-download-pretrained-checkpoints--test-datasets) setup above; without it, that task is reported as failed and the remaining tasks still run.
 
