@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+
+# pretrained checkpoints and data (downloaded via download.sh)
+/models/
+/datasets/
+
+# external nonlinear-blur code (cloned separately, see README) — dir or symlink
+/bkse
+/bkse/
+
+# outputs
+/results/
+
+# quick-demo raw outputs (scripts, input image, and comparison figures stay tracked)
+/test_results/*/
+!/test_results/input/
+/test_results/run.log

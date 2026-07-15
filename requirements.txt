@@ -1,0 +1,12 @@
+torch>=2.0
+torchvision
+numpy
+scipy
+matplotlib
+tqdm
+Pillow
+PyYAML
+packaging
+scikit-image
+lpips
+gdown
