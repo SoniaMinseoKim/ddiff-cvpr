@@ -150,6 +150,15 @@ python3 ddiff_sample.py \
 
 Full commands for every task are provided in `run_ffhq.sh` and `run_imagenet.sh`. Following the paper, phase retrieval is run with `--num_runs 5` and the best result is reported due to the intrinsic instability of the task.
 
+#### Reproduction notes
+
+A few implementation details that matter when reproducing the paper's numbers:
+
+- **Phase retrieval image range ([-1,1]).** Fourier magnitude measurements are generated directly from images in **[-1,1]** (no mapping to [0,1]), following the DPS phase-retrieval operator — not the DAPS convention, which maps images to [0,1] first. Note that in the [-1,1] convention the global sign flip is an exact symmetry of the Fourier magnitudes (|F(−x)| = |F(x)|), so individual runs can collapse onto a sign-inverted solution and per-image success is quite variable. The [0,1] variant is more stable per-run because the +0.5 offset breaks the sign ambiguity; either convention is a reasonable choice to experiment with, whichever works better for your data.
+- **Best-of-5 protocol.** The reported phase retrieval numbers use the best of 5 runs per image (`--num_runs 5`), averaged over the 100 validation images. Because success is image- and seed-dependent, we recommend evaluating over the full validation set rather than a single image — some individual images (e.g., FFHQ `00000.png`) can fail across many seeds at σ = 0.05 under the [-1,1] convention while others succeed almost every run.
+- **Normalized measurement gradient.** The reported experiments use the normalized measurement gradient as implemented in this code: `x ← v − γₜ · ∇/‖∇‖` (see `conditioning` in `ddiff_sample.py`). The unnormalized form written in Eq. 10 of the paper should be read with γₜ absorbing the gradient normalization; the γ₀ values in the table above correspond to the normalized parameterization.
+- **High-noise experiments.** The measurement-noise sweep (Fig. 3/4 of the paper) uses exactly the same hyperparameters as σ = 0.05 (for FFHQ phase retrieval: γ₀ = 38, t_γ = 90, a = 3.3, b = 0.1, t₀ = 1, best-of-5), unchanged across all noise levels — only the measurement noise standard deviation `sigma` in `ddiff_sample.py` is changed.
+
 ## Repository structure
 
 ```
